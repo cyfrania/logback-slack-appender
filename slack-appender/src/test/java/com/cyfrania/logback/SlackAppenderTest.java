@@ -5,6 +5,7 @@ import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.PatternLayout;
 import ch.qos.logback.classic.spi.LoggingEvent;
 import ch.qos.logback.core.status.Status;
+import com.cyfrania.logback.MockSlackServer.RequestInfo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -71,16 +72,17 @@ public class SlackAppenderTest {
     public void append_simple() {
         appender.append(createLoggingEvent("Hello, World!"));
 
-        String request = server.getRequest(0);
-        assertEquals("{\"text\":\"Hello, World!\"}", request);
-        assertEquals("Hello, World!", Json.readAsMap(request).get("text"));
+        RequestInfo request = server.getRequest(0);
+        assertEquals("application/json", request.headers.get("Content-Type"));
+        assertEquals("{\"text\":\"Hello, World!\"}", request.body);
+        assertEquals("Hello, World!", Json.readAsMap(request.body).get("text"));
     }
 
     @Test
     public void append_specialSymbol() {
         appender.append(createLoggingEvent("one \" quote"));
 
-        assertEquals("one \" quote", Json.readAsMap(server.getRequest(0)).get("text"));
+        assertEquals("one \" quote", Json.readAsMap(server.getRequest(0).body).get("text"));
     }
 
     @Test
@@ -99,7 +101,7 @@ public class SlackAppenderTest {
         appender.append(event);
 
         String expected = "2023-11-03 18:10:00 [main] INFO pumpkin - Hello, World!";
-        assertEquals(expected, Json.readAsMap(server.getRequest(0)).get("text"));
+        assertEquals(expected, Json.readAsMap(server.getRequest(0).body).get("text"));
     }
 
     @Test
