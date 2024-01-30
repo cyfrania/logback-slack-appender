@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration debug="true">
+  <import class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"/>
+  <import class="ch.qos.logback.core.ConsoleAppender"/>
+  <import class="ch.qos.logback.classic.AsyncAppender"/>
+  <import class="ch.qos.logback.classic.filter.ThresholdFilter"/>
+  <import class="ch.qos.logback.classic.PatternLayout"/>
+  <import class="com.cyfrania.logback.SlackAppender"/>
+  <import class="com.cyfrania.logback.SlackChatApi"/>
+
+  <variable resource="logback.properties"/>
+
+  <shutdownHook/>
+
+  <appender name="STDOUT" class="ConsoleAppender">
+    <encoder class="PatternLayoutEncoder">
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%kvp- %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="SLACK" class="SlackAppender">
+    <sender class="SlackChatApi">
+      <token>${token}</token>
+      <channel>${channel}</channel>
+    </sender>
+    <layout class="PatternLayout">
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %level %logger -%kvp- %msg%n</pattern>
+    </layout>
+  </appender>
+
+  <appender name="ASYNC_SLACK" class="AsyncAppender">
+    <maxFlushTime>5000</maxFlushTime>
+    <appender-ref ref="SLACK"/>
+    <filter class="ThresholdFilter">
+      <level>info</level>
+    </filter>
+  </appender>
+
+  <root level="info">
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="ASYNC_SLACK"/>
+  </root>
+</configuration>
