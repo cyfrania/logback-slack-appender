@@ -4,6 +4,8 @@ import ch.qos.logback.core.encoder.JsonEscapeUtil;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SlackWebhook implements SlackSender {
     private String webhookUrl;
@@ -21,7 +23,13 @@ public class SlackWebhook implements SlackSender {
 
     @Override
     public int sendMessage(String text) throws IOException {
-        return Http.post(new URL(webhookUrl), "application/json", toJson(text));
+        return Http.post(new URL(webhookUrl), getHeaders(), toJson(text));
+    }
+
+    private Map<String, String> getHeaders() {
+        final Map<String, String> result = new HashMap<>();
+        result.put("Content-Type", "application/json");
+        return result;
     }
 
     private String toJson(String text) {
