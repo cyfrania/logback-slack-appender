@@ -28,7 +28,7 @@ public class SlackAppenderTest {
     public void setUp() throws Exception {
         appender.setContext(loggerContext);
         appender.setName("SLACK");
-        appender.setWebhookUrl(server.getUrl());
+        appender.setSender(new SlackWebhook(server.getUrl()));
         appender.setLayout(createPatternLayout("%msg"));
 
         server.start();
@@ -47,14 +47,14 @@ public class SlackAppenderTest {
     }
 
     @Test
-    public void start_webhookUrlNotSet() {
+    public void start_modeNotSet() {
         assertFalse(appender.isStarted());
-        appender.setWebhookUrl(null);
+        appender.setSender(null);
 
         appender.start();
 
         assertFalse(appender.isStarted());
-        assertEquals("No webhookUrl set for the appender named [SLACK].", getLastStatus().getMessage());
+        assertEquals("No sender set for the appender named [SLACK].", getLastStatus().getMessage());
     }
 
     @Test

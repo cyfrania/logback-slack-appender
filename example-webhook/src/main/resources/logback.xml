@@ -6,6 +6,7 @@
   <import class="ch.qos.logback.classic.filter.ThresholdFilter"/>
   <import class="ch.qos.logback.classic.PatternLayout"/>
   <import class="com.cyfrania.logback.SlackAppender"/>
+  <import class="com.cyfrania.logback.SlackWebhook"/>
 
   <variable resource="logback.properties"/>
 
@@ -18,7 +19,9 @@
   </appender>
 
   <appender name="SLACK" class="SlackAppender">
-    <webhookUrl>${webhookUrl}</webhookUrl>
+    <sender class="SlackWebhook">
+      <webhookUrl>${webhookUrl}</webhookUrl>
+    </sender>
     <layout class="PatternLayout">
       <pattern>%d{HH:mm:ss.SSS} [%thread] %level %logger -%kvp- %msg%n</pattern>
     </layout>
