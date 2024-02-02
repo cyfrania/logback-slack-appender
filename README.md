@@ -14,7 +14,7 @@ or via API token and channel ID.
 
 Logback configuration file `logback.xml`:
 
-https://github.com/cyfrania/logback-slack-appender/blob/example-webhook/src/main/resources/logback.xml
+https://github.com/cyfrania/logback-slack-appender/blob/main/example-webhook/src/main/resources/logback.xml#L1-L
 
 The actual value for the Slack Webhook URL is taken from `logback.properties`. 
 
@@ -22,6 +22,6 @@ The actual value for the Slack Webhook URL is taken from `logback.properties`.
 
 Logback configuration file `logback.xml`:
 
-https://github.com/cyfrania/logback-slack-appender/blob/example-chatapi/src/main/resources/logback.xml
+https://github.com/cyfrania/logback-slack-appender/blob/main/example-chatapi/src/main/resources/logback.xml
 
 The actual value for the Slack API token and channel ID is taken from `logback.properties`. 
