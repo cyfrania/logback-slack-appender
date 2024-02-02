@@ -8,7 +8,7 @@ It does not have any external dependencies (besides Logback itself).
 
 Slack channel to receive log messages is configured 
 via [Incoming Webhook](https://api.slack.com/messaging/webhooks)
-or via API token and channel ID.
+or via [API token](https://api.slack.com/tutorials/tracks/getting-a-token) and channel ID.
 
 ## Usage example with Webhook
 
