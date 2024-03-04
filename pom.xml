@@ -4,7 +4,7 @@
 
   <groupId>com.cyfrania</groupId>
   <artifactId>logback-slack-appender</artifactId>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2</version>
   <packaging>jar</packaging>
 
   <name>Logback Slack Appender</name>
