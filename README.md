@@ -1,6 +1,6 @@
 # Logback Slack Appender 
 
-This is an Appender for [Logback](http://logback.qos.ch/) 
+This is an Appender for [Logback](https://logback.qos.ch/) 
 to send log messages and exceptions to a [Slack](https://slack.com/) channel.
 
 It works with Logback 1.3.x (Java 8+) and Logback 1.4.x (Java 11+).
